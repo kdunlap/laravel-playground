@@ -48,8 +48,9 @@ Below is the list of coding exercises included in this project. Each challenge i
   - [x] Add role-based access control (RBAC) where only users with the "admin" role can access certain routes.
   - [x] Implement email verification for new users.
 2. Eloquent Relationships & Query Optimization
-  - [ ] Set up models for User, Post, and Comment with proper relationships (hasMany, belongsTo).
-  - [ ] Write an optimized query to fetch a user's posts along with the latest three comments per post using eager loading.
+  - [x] Set up models for User, Post, and Comment with proper relationships (hasMany, belongsTo).
+  - [ ] Add basic CRUD pages for posts (paginated index)
+  - [ ] Add comments
 3. Custom Middleware for Request Validation
   - [ ] Create a middleware that ensures API requests contain a valid API key in the headers.
   - [ ] The middleware should log unauthorized attempts and throttle requests exceeding a limit.

@@ -9,6 +9,8 @@ use App\Models\Permission;
 
 class RoleSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /**
      * Run the database seeds.
      */

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -43,6 +44,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'roles.permissions'
     ];
 
+    /**
+     * The current user has the admin role assigned to them
+     */
     public function isAdmin(): bool
     {
         return $this->roles->contains(function (Role $role) {
@@ -50,6 +54,9 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
+    /**
+     * The current user has the $slug permission assigned
+     */
     public function hasPermission(string $slug): bool
     {
         return $this->roles->contains(function (Role $role) use ($slug){
@@ -62,6 +69,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
     /**

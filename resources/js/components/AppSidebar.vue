@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PageProps } from '@inertiajs/core';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, User } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, User, ScrollText } from 'lucide-vue-next';
 import { computed } from 'vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -17,7 +17,6 @@ interface AuthProps extends PageProps {
 }
 
 const page = usePage<AuthProps>()
-const canViewUsers = computed(() => page.props?.auth.can?.user_viewAny ?? false)
 
 const mainNavItems: NavItem[] = [
     {
@@ -25,8 +24,15 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },
+    {
+        title: 'Posts',
+        href: '/posts',
+        icon: ScrollText,
+    },
 ];
 
+
+const canViewUsers = computed(() => page.props?.auth.can?.user_viewAny ?? false)
 if(canViewUsers.value) {
     mainNavItems.push({
         title: 'Users',

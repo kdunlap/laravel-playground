@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /**
      * Run the database seeds.
      */
@@ -25,8 +27,8 @@ class UserSeeder extends Seeder
 
         $user_role = Role::where('slug', 'user')->first();
         User::factory(10)->create()
-        ->each(function ($user) use ($user_role) {
-            $user->roles()->attach($user_role);
-        });
+            ->each(function ($user) use ($user_role) {
+                $user->roles()->attach($user_role);
+            });
     }
 }

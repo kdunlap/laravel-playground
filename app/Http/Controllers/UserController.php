@@ -7,7 +7,7 @@ use Inertia\Inertia;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     public function index(Request $request)
     {
