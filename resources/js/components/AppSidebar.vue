@@ -1,12 +1,23 @@
 <script setup lang="ts">
+import { PageProps } from '@inertiajs/core';
+import { Link, usePage } from '@inertiajs/vue3';
+import { BookOpen, Folder, LayoutGrid, User } from 'lucide-vue-next';
+import { computed } from 'vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
+
+interface AuthProps extends PageProps {
+    auth: {
+        can: { [key: string]: boolean }
+    }
+}
+
+const page = usePage<AuthProps>()
+const canViewUsers = computed(() => page.props?.auth.can?.user_viewAny ?? false)
 
 const mainNavItems: NavItem[] = [
     {
@@ -15,6 +26,15 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
 ];
+
+if(canViewUsers.value) {
+    mainNavItems.push({
+        title: 'Users',
+        href: '/users',
+        icon: User,
+    });
+}
+
 
 const footerNavItems: NavItem[] = [
     {

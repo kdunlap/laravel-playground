@@ -19,20 +19,20 @@ class RoleSeeder extends Seeder
             'slug' => 'admin',
         ]);
         $admin_role->permissions()->create([
-            'name' => 'View Users',
-            'slug' => 'view-users',
+            'name' => 'View Any User',
+            'slug' => 'user_viewAny',
         ]);
         $admin_role->permissions()->create([
             'name' => 'Create Users',
-            'slug' => 'create-users',
+            'slug' => 'user_create',
         ]);
         $admin_role->permissions()->create([
             'name' => 'Update Users',
-            'slug' => 'update-users',
+            'slug' => 'user_update',
         ]);
         $admin_role->permissions()->create([
             'name' => 'Delete Users',
-            'slug' => 'delete-users',
+            'slug' => 'user_delete',
         ]);
 
         Role::create([

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -33,7 +34,32 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    public function roles()
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = [
+        'roles.permissions'
+    ];
+
+    public function isAdmin(): bool
+    {
+        return $this->roles->contains(function (Role $role) {
+            return $role->slug === 'admin';
+        });
+    }
+
+    public function hasPermission(string $slug): bool
+    {
+        return $this->roles->contains(function (Role $role) use ($slug){
+            return $role->permissions->contains(function (Permission $permission) use ($slug){
+                return $permission->slug === $slug;
+            });
+        });
+    }
+
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }

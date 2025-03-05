@@ -44,6 +44,15 @@ class HandleInertiaRequests extends Middleware
             'quote' => ['message' => trim($message), 'author' => trim($author)],
             'auth' => [
                 'user' => $request->user(),
+                'can' => $request->user()?->loadMissing('roles.permissions')
+                    ->roles
+                    ->flatMap(function ($role) {
+                        return $role->permissions;
+                    })->map(function ($permission) {
+                        return [$permission['slug'] => true];
+                    })
+                    ->collapse()
+                    ->all(),
             ],
         ];
     }

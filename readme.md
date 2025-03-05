@@ -45,7 +45,7 @@ Below is the list of coding exercises included in this project. Each challenge i
 
 1. User Authentication & Role-Based Access
   - [x] Implement user authentication using Laravel's built-in starter kits.
-  - [ ] Add role-based access control (RBAC) where only users with the "admin" role can access certain routes.
+  - [x] Add role-based access control (RBAC) where only users with the "admin" role can access certain routes.
   - [x] Implement email verification for new users.
 2. Eloquent Relationships & Query Optimization
   - [ ] Set up models for User, Post, and Comment with proper relationships (hasMany, belongsTo).
