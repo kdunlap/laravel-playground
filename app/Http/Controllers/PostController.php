@@ -13,8 +13,18 @@ class PostController extends Controller
     {
         Gate::authorize('viewAny', $request->user());
 
+        $posts_per_page = 5;
         return Inertia::render('posts/Index', [
-            'posts' => Post::all(),
+            'posts' => Post::with('author')->paginate($posts_per_page),
+        ]);
+    }
+
+    public function show(Request $request, string $slug)
+    {
+        Gate::authorize('view', $request->user());
+
+        return Inertia::render('posts/Show', [
+            'post' => Post::with(['author', 'comments'])->where('slug', $slug)->first(),
         ]);
     }
 }

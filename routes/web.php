@@ -16,6 +16,7 @@ Route::get('dashboard', function () {
 Route::get('users', [UserController::class, 'index'])->name('users.index');
 
 Route::get('posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('posts/{slug}', [PostController::class, 'show'])->name('posts.show');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
