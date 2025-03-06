@@ -39,7 +39,7 @@ To set up this project locally using Laravel Sail:
    - API: `http://localhost`
    - Sail shell: `./vendor/bin/sail shell`
 
-## Coding Challenges Checklist
+## Coding Exercises Checklist
 
 Below is the list of coding exercises included in this project. Each challenge is implemented as a separate feature branch or module.
 
