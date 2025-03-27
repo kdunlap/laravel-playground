@@ -9,4 +9,4 @@ cd /home/site/wwwroot && cp -n .env.example .env
 php artisan key:generate
 
 touch database/database.sqlite
-php artisan migrate --seed
+php artisan migrate --force
