@@ -48,7 +48,7 @@ jobs:
         run: npm ci && npm run build
 
       - name: Zip artifact for deployment
-        run: zip -r release.zip .  # git archive -o release.zip --add-file=./vendor --add-file=./public/build main # 
+        run: zip -r release.zip .  # make sure dot files are included
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
