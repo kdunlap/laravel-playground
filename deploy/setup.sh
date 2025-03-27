@@ -1,7 +1,7 @@
 #!/bin/bash 
 
-# make sure you've copied the default file from the nginx site-enabled and edited the root directory to 
-#/home/site/wwwroot/public 
+cp /etc/nginx/sites-enabled/default /home/site/ext
+
 cp /home/site/wwwroot/deploy/nginx-config /etc/nginx/sites-available/default
 service nginx reload
 
