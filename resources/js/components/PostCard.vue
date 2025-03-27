@@ -23,6 +23,6 @@ const linkUrl = computed(() => `${ route('posts.show', [slug]) }`)
             <Link :href="linkUrl">{{ title }}</Link>
         </h3>
         <p class="text-xs">Published {{ formattedPublishedAt }} by {{  author.name }}</p>
-        <Link class="border rounded-sm border-gray-600 px-2 text-sm mt-2" :href="linkUrl">View</Link>
+        <Link class="border rounded-sm border-gray-600 px-2 text-sm mt-2" :href="linkUrl">View Post</Link>
     </div>
 </template>

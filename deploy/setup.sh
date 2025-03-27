@@ -1,7 +1,5 @@
 #!/bin/bash 
 
-cp /etc/nginx/sites-enabled/default /home/site/ext
-
 cp /home/site/wwwroot/deploy/nginx-config /etc/nginx/sites-available/default
 service nginx reload
 
