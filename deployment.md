@@ -50,6 +50,7 @@ AZURE_ACR_PASSWORD=<Admin password from az acr credential show>
 AZURE_RESOURCE_GROUP=rg-tc-queue-worker-001
 AZURE_CONTAINER_NAME=laravel-queue-worker
 AZURE_LOCATION=canadacentral
+AZURE_TENANT_ID
 ```
 
 #### Add Environment Variables to Azure for Queue Worker
