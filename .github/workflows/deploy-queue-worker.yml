@@ -1,0 +1,44 @@
+name: Deploy Laravel Queue Worker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to ACR
+      run: echo "${{ secrets.AZURE_ACR_PASSWORD }}" | docker login ${{ secrets.AZURE_ACR_LOGIN_SERVER }} -u ${{ secrets.AZURE_ACR_USERNAME }} --password-stdin
+
+    - name: Build the Docker image
+      run: |
+        docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ secrets.AZURE_CONTAINER_NAME }}:latest -f worker.Dockerfile .
+
+    - name: Push the image to ACR
+      run: |
+        docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ secrets.AZURE_CONTAINER_NAME }}:latest
+
+    - name: Deploy to Azure Container Instances
+      run: |
+        az login --service-principal --username ${{ secrets.AZURE_ACR_USERNAME }} --password ${{ secrets.AZURE_ACR_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+        az container create \
+          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+          --name ${{ secrets.AZURE_CONTAINER_NAME }} \
+          --image ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ secrets.AZURE_CONTAINER_NAME }}:latest \
+          --cpu 1 \
+          --memory 1 \
+          --os-type Linux \
+          --restart-policy OnFailure \
+          --registry-login-server ${{ secrets.AZURE_ACR_LOGIN_SERVER }} \
+          --registry-username ${{ secrets.AZURE_ACR_USERNAME }} \
+          --registry-password ${{ secrets.AZURE_ACR_PASSWORD }} \
+          --environment-variables APP_ENV=production QUEUE_CONNECTION=redis
